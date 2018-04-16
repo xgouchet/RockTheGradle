@@ -1,4 +1,5 @@
 import fr.androidmakers.buildsrc.Dependencies
+import fr.androidmakers.buildsrc.Helper
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
@@ -27,7 +28,14 @@ dependencies {
 
     implementation Dependencies.Libraries.SupportLibs
 
-    // TODO add Rx libraries (api)
+    api Dependencies.Libraries.Rx
 
-    // TODO add Junit library (testImplementation)
+    testImplementation Dependencies.Libraries.JUnit4
+}
+
+task thirsty {
+    println("Configuring thirsty")
+    doLast {
+        Helper.ImThirsty()
+    }
 }
