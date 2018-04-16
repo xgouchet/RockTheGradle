@@ -1,0 +1,25 @@
+// Build script can't use the global definitions here as they're not available yet
+
+buildscript {
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.30"
+    }
+    repositories {
+        mavenCentral()
+    }
+}
+
+apply plugin: 'kotlin'
+apply plugin: 'java-gradle-plugin'
+
+// likewise, repositories and dependencies can't use undefined information
+
+repositories {
+    jcenter()
+    mavenCentral()
+    google()
+}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.2.30"
+}
