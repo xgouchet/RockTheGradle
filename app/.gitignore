@@ -1,1 +1,3 @@
 /build
+/src/main/res/values-en/*.xml
+/src/main/res/values-fr/*.xml

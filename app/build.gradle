@@ -1,5 +1,5 @@
 import fr.androidmakers.buildsrc.Dependencies
-import fr.androidmakers.buildsrc.Helper
+import fr.androidmakers.buildsrc.tasks.DownloadStrings
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
@@ -25,17 +25,14 @@ android {
 
 dependencies {
     implementation Dependencies.Libraries.KotlinJre7
-
     implementation Dependencies.Libraries.SupportLibs
-
     api Dependencies.Libraries.Rx
 
     testImplementation Dependencies.Libraries.JUnit4
 }
 
-task thirsty {
-    println("Configuring thirsty")
-    doLast {
-        Helper.ImThirsty()
-    }
+task downloadStrings(type: DownloadStrings) {
+    languages = ["en", "fr"]
+    projectBasePath = projectDir
+    baseHost = "0.0.0.0:8080"
 }

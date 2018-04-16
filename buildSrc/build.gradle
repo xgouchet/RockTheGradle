@@ -22,4 +22,7 @@ repositories {
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.2.30"
+    compile "com.natpryce:konfig:1.6.6.0"
+    compile "com.github.kittinunf.fuel:fuel:1.12.0"
+    compile "com.github.kittinunf.fuel:fuel-gson:1.12.0"
 }
