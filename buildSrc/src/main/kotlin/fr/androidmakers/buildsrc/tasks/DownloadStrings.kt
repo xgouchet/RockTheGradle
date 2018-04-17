@@ -11,6 +11,7 @@ import fr.androidmakers.buildsrc.plugins.RemoteL10nExtension
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
 import java.io.File
+import java.net.HttpURLConnection
 
 open class DownloadStrings : DefaultTask() {
 
@@ -28,17 +29,24 @@ open class DownloadStrings : DefaultTask() {
         val config = EnvironmentVariables() overriding ConfigurationProperties.fromFile(gradleProperties)
         val authentication = "${config[user.identifier]}:${config[user.password]}@"
 
-        for (language in configuration.languages) {
-            val path = "http://$authentication${configuration.remoteHost}/$language/strings.xml"
-            Fuel.download(path)
-                    .destination { response, url ->
-                        val file = File("$projectBasePath/src/main/res/values-$language/strings.xml")
-                        file.parentFile.mkdirs() // ensure the folder exists
-                        return@destination file
-                    }
-                    .response { req, res, result ->
-                        println(" ✓ Downloaded strings in values-$language")
-                    }
+        val variants = configuration.variants ?: return
+        for (variant in variants) {
+            for (language in variant.languages) {
+                val path = "http://$authentication@${configuration.remoteHost}/${variant.name}/$language/strings.xml"
+                Fuel.download(path)
+                        .destination { response, url ->
+                            val file = File("$projectBasePath/src/${variant.name}/res/values-$language/strings.xml")
+                            file.parentFile.mkdirs() // ensure the folder exists
+                            return@destination file
+                        }
+                        .response { req, res, result ->
+                            if (res.statusCode != HttpURLConnection.HTTP_OK) {
+                                System.err.println(" ✗ Error downloading $path")
+                            } else {
+                                println(" ✓ Downloaded strings for ${variant.name} in values-$language")
+                            }
+                        }
+            }
         }
     }
 }

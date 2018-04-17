@@ -12,6 +12,7 @@ class RemoteL10n : Plugin<Project> {
         if (project == null) return
 
         val remoteL10nExtension = project.extensions.create("remoteL10n", RemoteL10nExtension::class.java)
+        remoteL10nExtension.variants = project.container(VariantL10n::class.java)
 
         val downloadTask = project.tasks.create("downloadRemoteStrings", DownloadStrings::class.java).apply {
             projectBasePath = project.projectDir.path
@@ -25,5 +26,3 @@ class RemoteL10n : Plugin<Project> {
         }
     }
 }
-
-

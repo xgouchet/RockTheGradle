@@ -15,10 +15,22 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    flavorDimensions 'bundle'
+    productFlavors {
+        free {
+            dimension 'bundle'
+            applicationId "fr.androidmakers.rockthegradle.free"
+        }
+        full {
+            dimension 'bundle'
         }
     }
 }
@@ -34,6 +46,16 @@ dependencies {
 apply plugin: RemoteL10n
 
 remoteL10n {
-    languages = ["en", "fr"]
     remoteHost = "0.0.0.0:8080"
+    variants {
+        debug {
+            languages = ["en"]
+        }
+        freeRelease  {
+            languages = ["fr", "en"]
+        }
+        fullRelease  {
+            languages = ["fr", "en", "es", "de"]
+        }
+    }
 }
