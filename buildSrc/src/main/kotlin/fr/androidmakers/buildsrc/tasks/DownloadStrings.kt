@@ -7,15 +7,15 @@ import com.natpryce.konfig.PropertyGroup
 import com.natpryce.konfig.getValue
 import com.natpryce.konfig.overriding
 import com.natpryce.konfig.stringType
+import fr.androidmakers.buildsrc.plugins.RemoteL10nExtension
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
 import java.io.File
 
 open class DownloadStrings : DefaultTask() {
 
-    var languages = arrayOf("en")
     var projectBasePath = "."
-    var baseHost = "127.0.0.1"
+    var configuration: RemoteL10nExtension = RemoteL10nExtension()
 
     object user : PropertyGroup() {
         val identifier by stringType
@@ -28,8 +28,8 @@ open class DownloadStrings : DefaultTask() {
         val config = EnvironmentVariables() overriding ConfigurationProperties.fromFile(gradleProperties)
         val authentication = "${config[user.identifier]}:${config[user.password]}@"
 
-        for (language in languages) {
-            val path = "http://$authentication$baseHost/$language/strings.xml"
+        for (language in configuration.languages) {
+            val path = "http://$authentication${configuration.remoteHost}/$language/strings.xml"
             Fuel.download(path)
                     .destination { response, url ->
                         val file = File("$projectBasePath/src/main/res/values-$language/strings.xml")
@@ -37,7 +37,7 @@ open class DownloadStrings : DefaultTask() {
                         return@destination file
                     }
                     .response { req, res, result ->
-                        println("Downloaded strings in $language")
+                        println(" ✓ Downloaded strings in values-$language")
                     }
         }
     }
