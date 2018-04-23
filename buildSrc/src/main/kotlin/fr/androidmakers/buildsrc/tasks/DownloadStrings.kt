@@ -10,6 +10,13 @@ import org.gradle.api.tasks.TaskAction
 
 open class DownloadStrings : DefaultTask() {
 
+
+    init {
+        group = "makers"
+        description = "Downloads strings.xml from a remote server"
+    }
+
+
     var projectBasePath = "."
     var configuration: RemoteL10nExtension = RemoteL10nExtension()
 
