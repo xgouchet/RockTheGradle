@@ -43,7 +43,7 @@ dependencies {
     testImplementation Dependencies.Libraries.JUnit4
 }
 
-apply plugin: RemoteL10n
+apply plugin: "remoteL10n"
 
 remoteL10n {
     remoteHost = "0.0.0.0:8080"

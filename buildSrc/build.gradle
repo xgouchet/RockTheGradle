@@ -10,7 +10,6 @@ buildscript {
 }
 
 apply plugin: 'kotlin'
-apply plugin: 'java-gradle-plugin'
 
 // likewise, repositories and dependencies can't use undefined information
 
@@ -31,4 +30,17 @@ dependencies {
 
     testCompile "org.mockito:mockito-core:2.13.0"
     testImplementation "com.nhaarman:mockito-kotlin:1.5.0"
+}
+
+
+apply plugin: 'java-gradle-plugin'
+
+// automatically configures the Generate the jar file’s META-INF directory.
+gradlePlugin {
+    plugins {
+        remoteL10n {
+            id = "remoteL10n"
+            implementationClass = "fr.androidmakers.buildsrc.plugins.RemoteL10n"
+        }
+    }
 }
