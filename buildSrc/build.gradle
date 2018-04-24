@@ -42,5 +42,9 @@ gradlePlugin {
             id = "remoteL10n"
             implementationClass = "fr.androidmakers.buildsrc.plugins.RemoteL10n"
         }
+        striker {
+            id ="striker"
+            implementationClass = "fr.androidmakers.buildsrc.plugins.Striker"
+        }
     }
 }

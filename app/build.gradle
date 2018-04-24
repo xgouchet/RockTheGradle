@@ -1,5 +1,9 @@
+plugins {
+    id "com.dorongold.task-tree" version "1.3"
+}
+
+
 import fr.androidmakers.buildsrc.Dependencies
-import fr.androidmakers.buildsrc.plugins.RemoteL10n
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
@@ -51,11 +55,13 @@ remoteL10n {
         debug {
             languages = ["en"]
         }
-        freeRelease  {
-            languages = ["fr", "en"]
+        freeRelease {
+            languages = ["fr", "en", "jp"]
         }
-        fullRelease  {
+        fullRelease {
             languages = ["fr", "en", "es", "de"]
         }
     }
 }
+
+apply plugin: "striker"
