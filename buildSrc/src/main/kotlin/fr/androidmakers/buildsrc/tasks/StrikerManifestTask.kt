@@ -8,11 +8,11 @@ import java.io.File
 open class StrikerManifestTask : DefaultTask() {
 
     @OutputFile
-    var buildDirPath : String = ""
+    var manifestPath : String = ""
 
     @TaskAction
     fun generateManifest() {
-        File(buildDirPath).writeText("""
+        File(manifestPath).writeText("""
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="fr.androidmakers.rockthegradle">
 
@@ -20,8 +20,7 @@ open class StrikerManifestTask : DefaultTask() {
                  android:label="@string/app_name"
                  android:icon="@mipmap/ic_launcher"
                  android:roundIcon="@mipmap/ic_launcher_round"
-                 android:supportsRtl="true"
-                 android:theme="@style/AppTheme"/>
+                 android:supportsRtl="true"/>
 </manifest>
 
         """.trimIndent())

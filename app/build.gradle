@@ -41,27 +41,27 @@ android {
 
 dependencies {
     implementation Dependencies.Libraries.KotlinJre7
-    implementation Dependencies.Libraries.SupportLibs
-    api Dependencies.Libraries.Rx
-
-    testImplementation Dependencies.Libraries.JUnit4
+//    implementation Dependencies.Libraries.SupportLibs
+//    api Dependencies.Libraries.Rx
+//
+//    testImplementation Dependencies.Libraries.JUnit4
 }
 
-apply plugin: "remoteL10n"
-
-remoteL10n {
-    remoteHost = "0.0.0.0:8080"
-    variants {
-        debug {
-            languages = ["en"]
-        }
-        freeRelease {
-            languages = ["fr", "en", "jp"]
-        }
-        fullRelease {
-            languages = ["fr", "en", "es", "de"]
-        }
-    }
-}
+//apply plugin: "remoteL10n"
+//
+//remoteL10n {
+//    remoteHost = "0.0.0.0:8080"
+//    variants {
+//        debug {
+//            languages = ["en"]
+//        }
+//        freeRelease {
+//            languages = ["fr", "en", "jp"]
+//        }
+//        fullRelease {
+//            languages = ["fr", "en", "es", "de"]
+//        }
+//    }
+//}
 
 apply plugin: "striker"
