@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">FR Pierre le Gradle</string>
+    <string name="action_settings">Preferences</string>
+
+    <string name="hello_world">Bonjour le monde</string>
+
+</resources>
