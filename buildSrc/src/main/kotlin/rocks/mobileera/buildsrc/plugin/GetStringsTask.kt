@@ -10,13 +10,13 @@ open class GetStringsTask : DefaultTask() {
 
     val downloader: Downloader = FuelDownloader()
 
-    var languages: Array<String> = arrayOf()
     var root = ""
-    var baseUrl = "http://127.0.0.1"
+    var extension = GetStringsExtension()
+
 
     @TaskAction fun performTask() {
-        for (l in languages) {
-            val url = "$baseUrl/$l/strings.xml"
+        for (l in extension.languages) {
+            val url = "${extension.baseUrl}/$l/strings.xml"
             val path = "$root/res/values-$l/strings.xml"
             downloader.download(url, path)
         }

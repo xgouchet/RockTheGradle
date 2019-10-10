@@ -39,10 +39,10 @@ dependencies {
     testImplementation Dependencies.Libraries.JUnit4
 }
 
-import rocks.mobileera.buildsrc.plugin.GetStringsTask
+import rocks.mobileera.buildsrc.plugin.GetStringsPlugin
+apply plugin: GetStringsPlugin
 
-task getStrings (type : GetStringsTask) {
-    baseUrl = "https://raw.githubusercontent.com/xgouchet/RockTheGradle/strings"
+getStrings {
     languages = ["en", "fr"]
-    root = "${projectDir.path}/src/main"
+    baseUrl = "https://raw.githubusercontent.com/xgouchet/RockTheGradle/strings"
 }
