@@ -8,6 +8,11 @@ import rocks.mobileera.buildsrc.utils.FuelDownloader
 
 open class GetStringsTask : DefaultTask() {
 
+    init {
+        group = "mobileEra"
+        description = "Downloads strings.xml from a remote server."
+    }
+
     val downloader: Downloader = FuelDownloader()
 
     var root = ""
