@@ -39,8 +39,7 @@ dependencies {
     testImplementation Dependencies.Libraries.JUnit4
 }
 
-import rocks.mobileera.buildsrc.plugin.GetStringsPlugin
-apply plugin: GetStringsPlugin
+apply plugin: "getStrings"
 
 getStrings {
     languages = ["en", "fr"]

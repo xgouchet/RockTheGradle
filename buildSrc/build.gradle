@@ -31,3 +31,16 @@ dependencies {
 
     testImplementation "junit:junit:4.12"
 }
+
+
+apply plugin: 'java-gradle-plugin'
+
+// automatically configures the Generate the jar file’s META-INF directory.
+gradlePlugin {
+    plugins {
+        getStrings {
+            id = "getStrings"
+            implementationClass = "rocks.mobileera.buildsrc.plugin.GetStringsPlugin"
+        }
+    }
+}
