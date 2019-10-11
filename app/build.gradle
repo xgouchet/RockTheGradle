@@ -27,6 +27,17 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    flavorDimensions 'bundle'
+    productFlavors {
+        free {
+            dimension 'bundle'
+            applicationId "fr.androidmakers.rockthegradle.free"
+        }
+        full {
+            dimension 'bundle'
+        }
+    }
 }
 
 dependencies {
@@ -42,6 +53,19 @@ dependencies {
 apply plugin: "getStrings"
 
 getStrings {
-    languages = ["en", "fr"]
     baseUrl = "https://raw.githubusercontent.com/xgouchet/RockTheGradle/strings"
+
+    variants {
+        debug {
+            languages = ["en"]
+        }
+
+        free {
+            languages = ["fr"]
+        }
+
+        fullRelease {
+            languages = ["en", "fr", "es"]
+        }
+    }
 }

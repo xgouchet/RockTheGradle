@@ -25,7 +25,9 @@ open class GetStringsTask : DefaultTask() {
 
     @Input
     fun getLanguagesInputs(): List<String> {
-        return extension.languages.toList()
+        return extension.variants.orEmpty()
+                .flatMap { v -> v.languages.map { "${v.name}/$it" } }
+                .toList()
     }
 
     @Input
@@ -35,9 +37,9 @@ open class GetStringsTask : DefaultTask() {
 
     @OutputFiles
     fun getTaskOutputs(): List<File> {
-        return extension.languages.map { l ->
-            File("$root/res/values-$l/strings.xml")
-        }
+        return extension.variants.orEmpty()
+                .flatMap { v -> v.languages.map { File("$root/${v.name}/res/values-$it/strings.xml") } }
+                .toList()
     }
 
     @Input
@@ -48,10 +50,12 @@ open class GetStringsTask : DefaultTask() {
 
 
     @TaskAction fun performTask() {
-        for (l in extension.languages) {
-            val url = "${extension.baseUrl}/$l/strings.xml"
-            val path = "$root/res/values-$l/strings.xml"
-            downloader.download(url, path)
+        for (v in extension.variants.orEmpty()) {
+            for (l in v.languages) {
+                val url = "${extension.baseUrl}/$l/strings.xml"
+                val path = "$root/${v.name}/res/values-$l/strings.xml"
+                downloader.download(url, path)
+            }
         }
     }
 }

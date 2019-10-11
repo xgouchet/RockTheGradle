@@ -10,12 +10,13 @@ class GetStringsPlugin : Plugin<Project> {
 
         val ext = project.extensions
                 .create("getStrings", GetStringsExtension::class.java)
+        ext.variants =  project.container(VariantLanguages::class.java)
 
         val task = project.tasks
                 .create("getStrings", GetStringsTask::class.java)
 
         task.apply {
-            root = "${project.projectDir.path}/src/main"
+            root = "${project.projectDir.path}/src"
             extension = ext
         }
 
