@@ -9,11 +9,11 @@ class GetStringsPlugin : Plugin<Project> {
     override fun apply(project: Project) {
 
         val ext = project.extensions
-                .create("getStrings", GetStringsExtension::class.java)
+                .create(EXTENSION_NAME, GetStringsExtension::class.java)
         ext.variants =  project.container(VariantLanguages::class.java)
 
         val task = project.tasks
-                .create("getStrings", GetStringsTask::class.java)
+                .create(TASK_NAME, GetStringsTask::class.java)
 
         task.apply {
             root = "${project.projectDir.path}/src"
@@ -25,6 +25,11 @@ class GetStringsPlugin : Plugin<Project> {
                 it.dependsOn(task)
             }
         }
+    }
+
+    companion object {
+        internal const val EXTENSION_NAME = "getStrings"
+        internal const val TASK_NAME = "getStrings"
     }
 
 }
