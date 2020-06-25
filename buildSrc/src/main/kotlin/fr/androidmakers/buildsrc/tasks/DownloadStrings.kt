@@ -8,6 +8,7 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.OutputFiles
 import org.gradle.api.tasks.TaskAction
+import org.gradle.api.tasks.incremental.IncrementalTaskInputs
 import java.io.File
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -32,12 +33,13 @@ open class DownloadStrings : DefaultTask() {
 
     @TaskAction
     fun doIt() {
+        println("Fetching")
         val fetcher = RemoteL10nFetcher()
         fetcher.fetchStrings(FuelDownloader(), projectBasePath, configuration)
     }
 
     @Input
-    fun getDateInput() : String {
+    fun getDateInput(): String {
         val formatter = DateTimeFormatter.ISO_DATE
         return LocalDateTime.now().format(formatter)
     }
@@ -68,4 +70,15 @@ open class DownloadStrings : DefaultTask() {
         }
         return outputs
     }
+
+    @TaskAction
+    fun incrementalAction(inputs: IncrementalTaskInputs) {
+        if (inputs.isIncremental) {
+            inputs.outOfDate { change -> println("out of date: ${change.file.name}") }
+            inputs.removed { change -> println("removed: ${change.file.name}") }
+        } else {
+            // …
+        }
+    }
+
 }
